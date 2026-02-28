@@ -5,7 +5,8 @@ const {
   registrar,
   login,
   listarUsuarios,
-  crearInicial   // 👈 AGREGADO
+  crearInicial,
+  eliminarUsuario
 } = require("../controllers/usuarios.controller");
 
 const { verificarToken, soloGerente } = require("../middlewares/auth");
@@ -29,4 +30,9 @@ router.post("/", verificarToken, soloGerente, registrar);
 // Listar usuarios
 // ================================
 router.get("/", verificarToken, soloGerente, listarUsuarios);
+
+
+// Eliminar usuario
+router.delete("/:id", verificarToken, soloGerente, eliminarUsuario);
+
 module.exports = router;
