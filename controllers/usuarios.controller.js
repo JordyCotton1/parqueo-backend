@@ -145,5 +145,26 @@ exports.crearInicial = async (req, res) => {
     res.status(500).json({ error: "Error creando usuario inicial" });
   }
 };
+// =======================================================
+// ELIMINAR USUARIO (Solo gerente)
+// =======================================================
+exports.eliminarUsuario = async (req, res) => {
+  try {
+    const { id } = req.params;
 
+    const eliminado = await Usuario.destroy({
+      where: { Id_Usuario: id }
+    });
+
+    if (!eliminado) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    res.json({ mensaje: "Usuario eliminado correctamente ✔" });
+
+  } catch (error) {
+    console.error("Error al eliminar usuario:", error);
+    res.status(500).json({ error: "Error al eliminar usuario" });
+  }
+};
 
